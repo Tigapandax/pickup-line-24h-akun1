@@ -13,6 +13,8 @@ const checks: Array<[string, boolean]> = [
   ["line must not start with a space", !line.startsWith(" ")],
   ["line must not end with a trailing space", !line.endsWith(" ")],
   ["line must end with terminal punctuation (. ! ?)", /[.!?]$/.test(line)],
+  ["line must contain at least 3 words", line.trim().split(/\s+/).length >= 3],
+  ["line must contain at least one letter", /[A-Za-z]/.test(line)],
   ["line must not contain control characters", !/[\u0000-\u001f\u007f]/.test(line)],
 ];
 
