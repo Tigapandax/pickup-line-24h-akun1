@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 const MAX_CHARS = 200;
 
@@ -26,4 +26,11 @@ if (failed.length > 0) {
 }
 
 console.log(line);
+
+// Harness program/v1: the sealed scorer reads /output/entry.txt (1-200 chars).
+// Write the line there too (stdout alone scores Valid 0).
+const outputDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
+mkdirSync(outputDir, { recursive: true });
+writeFileSync(`${outputDir}/entry.txt`, `${line}\n`, "utf8");
+console.log(`Wrote ${outputDir}/entry.txt (${line.length}/${MAX_CHARS} characters).`);
 console.log(`OK: ${line.length}/${MAX_CHARS} characters, single line, valid pickup line.`);
